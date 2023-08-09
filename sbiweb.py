@@ -191,6 +191,7 @@ def sbiWatchStock(driver:selenium.webdriver.chrome.webdriver.WebDriver, in_data)
             moneyTag = driver.find_element(by=By.XPATH, value="//*[@id='MTB0_2']/span[1]")
             #print(f"{moneyTag.text} : {retry} : {(1+(int(in_data['g_setper'])/100))}")
 
+            '''
             if moneyTag.text != "--":  # 数値が入っている場合
 
                 if first == True:  # "--"の後に数値になった！
@@ -208,7 +209,7 @@ def sbiWatchStock(driver:selenium.webdriver.chrome.webdriver.WebDriver, in_data)
                     return 1
                 else:
                     return -1   #すでに値が入っている。（注文済み？）
-
+            '''
         except Exception as e:
             print(f"An error occurred: {e}")
             break

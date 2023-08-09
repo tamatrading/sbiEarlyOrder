@@ -3,7 +3,7 @@ def toValue(f_str: str):
     if f_str.find(',') >= 0:
         f_tmp = int(f_str.replace(",", ""))
     else:
-        f_tmp = -1
+        f_tmp = int(f_str)
     return f_tmp
 
 def kehaiValue(f_str: str):

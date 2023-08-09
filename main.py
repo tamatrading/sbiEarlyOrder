@@ -108,6 +108,8 @@ if __name__ == "__main__":
 
         ret = sbi.sbiIpoLogin(driver, user_input)   #ログイン
         if ret == 0:    #ログイン完了
+            #注文可能になるまで待ち、注文可能になったら注文を入れる
+            """
             for retry in range(2000):
                 dt_now = datetime.datetime.now()
                 orderEnable = sbi.sbiGotoSpotPurchase(driver,user_input)  #現物買いページにジャンプ
@@ -118,20 +120,22 @@ if __name__ == "__main__":
                     break;
                 else:
                     time.sleep(10)
+            """
+            orderEnable = sbi.sbiGotoSpotPurchase(driver, user_input)  # 現物買いページにジャンプ
 
-        #    for retry in range(2000):
-        #        ret1 = sbi.sbiWatchStock(driver, user_input)   #銘柄板情報に飛ぶ
-        #        if ret1 == 0: #継続
-        #            driver.refresh()
-        #        elif ret1 == 1: #注文完了
-        #            print(f"注文完了しましたよーー")
-        #            break
-        #        elif ret1 == 2: #大引け
-        #            print(f"大引けーー")
-        #            break
+            for retry in range(2000):
+                ret1 = sbi.sbiWatchStock(driver, user_input)   #銘柄板情報に飛ぶ
+                if ret1 == 0: #継続
+                    driver.refresh()
+                elif ret1 == 1: #注文完了
+                    print(f"注文完了しましたよーー")
+                    break
+                elif ret1 == 2: #大引け
+                    print(f"大引けーー")
+                    break
 
-        #    print(f"ret={ret}")
-        #    time.sleep(1800) #このスリープ中（３０分）に注文内容を確認してねーー
+            print(f"ret={ret}")
+            time.sleep(1800) #このスリープ中（３０分）に注文内容を確認してねーー
             sbi.sbiLogOut(driver)                   #ログアウト
 
         driver.quit()
