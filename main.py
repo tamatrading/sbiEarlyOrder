@@ -5,7 +5,7 @@ import datetime
 
 import requests
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+#from webdriver_manager.chrome import ChromeDriverManager
 #from webdriver.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -91,18 +91,21 @@ if __name__ == "__main__":
         if DISP_MODE == "OFF":
             options = Options()
             options.add_argument('--headless')
-            driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+            #driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+            driver = webdriver.Chrome(service=Service(), options=options)
 
         else:
             try:
-                driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+                #driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+                driver = webdriver.Chrome(service=Service())
                 # 自動でPCのChromeと同じバージョンのdriverをインストールする処理
                 # self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
             except:
                 # 例外発生時、配布されているもののうち最新のdriverをインストールする処理
                 res = requests.get('https://chromedriver.storage.googleapis.com/LATEST_RELEASE')
                 options = Options()
-                driver = webdriver.Chrome(service=Service(ChromeDriverManager(res.text).install()), options=options)
+                #driver = webdriver.Chrome(service=Service(ChromeDriverManager(res.text).install()), options=options)
+                driver = webdriver.Chrome(service=Service(), options=options)
 
         #print(type(driver))
 
