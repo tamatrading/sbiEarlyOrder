@@ -191,25 +191,26 @@ def sbiWatchStock(driver:selenium.webdriver.chrome.webdriver.WebDriver, in_data)
             moneyTag = driver.find_element(by=By.XPATH, value="//*[@id='MTB0_2']/span[1]")
             #print(f"{moneyTag.text} : {retry} : {(1+(int(in_data['g_setper'])/100))}")
 
-            '''
+
             if moneyTag.text != "--":  # 数値が入っている場合
 
                 if first == True:  # "--"の後に数値になった！
                     money = moneyTag.text.replace(",", "")
-                    ext1 = int(int(money) * (1+(int(in_data["g_setper"])/100)))
+                    #ext1 = int(int(money) * (1+(int(in_data["g_setper"])/100)))
+                    ext1 = int(int(money) * (1+(5/100)))
                     ext1 = round(ext1, -1)
                     driver.find_element(by=By.NAME, value="input_trigger_price").send_keys(str(ext1))
                     ext2 = int(int(money) * 1.1)
                     ext2 = round(ext2, -1)
                     print(f"{ext1} , {ext2}")
                     driver.find_element(by=By.NAME, value="gsn_input_price").send_keys(str(ext2))
-                    #driver.find_element(by=By.XPATH, value="//img[@title='注文発注']").click()
+                    driver.find_element(by=By.XPATH, value="//img[@title='注文発注']").click()
 
                     first = False
                     return 1
                 else:
                     return -1   #すでに値が入っている。（注文済み？）
-            '''
+
         except Exception as e:
             print(f"An error occurred: {e}")
             break
