@@ -47,7 +47,7 @@ def sbiIpoLogin(driver:selenium.webdriver.chrome.webdriver.WebDriver, in_data):
     # name属性で指定
     try:
         moneyTag = driver.find_element(by=By.XPATH,
-                                       value="/html/body/table/tbody/tr[1]/td[1]/div[2]/div[1]/div/div/div/div/table/tbody/tr/td[1]/span")
+                                       value="/html/body/table/tbody/tr[1]/td[1]/div[1]/div/div[2]/div[1]/div/div/div/span/p")
     except NoSuchElementException:
         tmp = driver.find_elements(by=By.XPATH, value="//b[contains(text(),'重要なお知らせ')]")
         if len(tmp) >= 1:
@@ -57,10 +57,10 @@ def sbiIpoLogin(driver:selenium.webdriver.chrome.webdriver.WebDriver, in_data):
         return ii
 
     # 投資可能額が表示されるまで待機
-    locator = (By.XPATH, "/html/body/table/tbody/tr[1]/td[1]/div[2]/div[1]/div/div/div/div/table/tbody/tr/td[1]/span")
+    locator = (By.XPATH, "/html/body/table/tbody/tr[1]/td[1]/div[1]/div/div[2]/div[1]/div/div/div/span/p")
     WebDriverWait(driver, 30).until(EC.visibility_of_element_located(locator))
 
-    money = int(moneyTag.text.replace(",", ""))
+    money = int(moneyTag.text.replace(",", "").replace("円", ""))
     print(money)
 
     return 0
